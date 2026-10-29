@@ -1,0 +1,45 @@
+{
+  "name": "hop",
+  "version": "1.0.0",
+  "description": "AirDrop-style file transfer for Mac and Windows",
+  "main": "src/main.js",
+  "homepage": "http://hop-drop.vercel.app",
+  "author": "Built with Claude",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "test": "node src/test.js",
+    "build": "electron-builder",
+    "build:mac": "electron-builder --mac",
+    "build:win": "electron-builder --win",
+    "publish": "electron-builder -mwp"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^30.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "build": {
+    "appId": "com.hop.transfer",
+    "productName": "Hop",
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "node_modules/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": ["dmg"],
+      "icon": "assets/icons/hop.icns"
+    },
+    "win": {
+      "target": ["nsis", "portable"],
+      "icon": "assets/icons/hop.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

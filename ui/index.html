@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hop - File Transfer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-container">
+    <header class="header">
+      <div class="device-info">
+        <div class="device-icon" id="deviceIcon">🖥️</div>
+        <div class="device-name" id="deviceName">Loading...</div>
+      </div>
+      <div class="settings">
+        <button id="themeToggle" class="theme-btn" title="Toggle theme">
+          🌙
+        </button>
+        <button id="downloadDirBtn" class="settings-btn" title="Change download folder">
+          📁
+        </button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="radar-container">
+        <canvas id="radar" width="600" height="600"></canvas>
+        <div class="radar-labels">
+          <div class="label north">N</div>
+          <div class="label east">E</div>
+          <div class="label south">S</div>
+          <div class="label west">W</div>
+        </div>
+      </div>
+
+      <div class="peers-panel">
+        <h2>Available Devices</h2>
+        <div id="peersList" class="peers-list">
+          <div class="empty-state">
+            🔍 Searching for devices...
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="offerModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="offerTitle">Incoming Files</h3>
+          <button class="close-btn" id="closeOffer">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="file-list" id="offerFileList"></div>
+          <div class="trust-checkbox">
+            <input type="checkbox" id="trustCheckbox" />
+            <label for="trustCheckbox">Always accept from this device</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="declineBtn" class="btn btn-secondary">Decline</button>
+          <button id="acceptBtn" class="btn btn-primary">Accept</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="transferModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Select Files to Send</h3>
+        </div>
+        <div class="modal-body">
+          <button id="selectFilesBtn" class="btn btn-primary">
+            📄 Choose Files
+          </button>
+          <button id="selectFolderBtn" class="btn btn-primary">
+            📁 Choose Folder
+          </button>
+          <div id="selectedFiles" class="selected-files"></div>
+        </div>
+        <div class="modal-footer">
+          <button id="cancelTransferBtn" class="btn btn-secondary">
+            Cancel
+          </button>
+          <button id="sendBtn" class="btn btn-primary" disabled>
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="progressModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="progressTitle">Transferring...</h3>
+        </div>
+        <div class="modal-body">
+          <div class="progress-ring-container">
+            <canvas id="progressRing" width="200" height="200"></canvas>
+            <div class="progress-text">
+              <span id="progressPercent">0%</span>
+            </div>
+          </div>
+          <div class="progress-info">
+            <p id="progressDetails">Preparing...</p>
+            <p class="progress-speed" id="progressSpeed">0 MB/s</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="radar.js"></script>
+  <script src="ui.js"></script>
+</body>
+</html>

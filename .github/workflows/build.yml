@@ -1,0 +1,59 @@
+name: Build Hop
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: macos-latest
+            arch: x64
+          - os: macos-latest
+            arch: arm64
+          - os: windows-latest
+            arch: x64
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build macOS (x64)
+        if: matrix.os == 'macos-latest' && matrix.arch == 'x64'
+        run: npm run build:mac -- --x64
+
+      - name: Build macOS (arm64)
+        if: matrix.os == 'macos-latest' && matrix.arch == 'arm64'
+        run: npm run build:mac -- --arm64
+
+      - name: Build Windows
+        if: matrix.os == 'windows-latest'
+        run: npm run build:win
+
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/*.dmg
+            dist/*.exe
+            dist/*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

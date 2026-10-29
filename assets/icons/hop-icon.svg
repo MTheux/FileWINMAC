@@ -1,0 +1,35 @@
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a84ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00c7ff;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="#ffffff" rx="220"/>
+
+  <!-- Outer ring -->
+  <circle cx="512" cy="512" r="450" fill="none" stroke="url(#grad)" stroke-width="40" filter="url(#shadow)"/>
+
+  <!-- Middle ring -->
+  <circle cx="512" cy="512" r="350" fill="none" stroke="url(#grad)" stroke-width="30" opacity="0.7"/>
+
+  <!-- Center circle -->
+  <circle cx="512" cy="512" r="250" fill="url(#grad)" filter="url(#shadow)"/>
+
+  <!-- Inner design - arrow pointing up -->
+  <g transform="translate(512, 512)">
+    <!-- Left arrow -->
+    <path d="M -80 20 L -40 -40 L -40 20 Z" fill="#ffffff" opacity="0.9"/>
+
+    <!-- Right arrow -->
+    <path d="M 80 20 L 40 -40 L 40 20 Z" fill="#ffffff" opacity="0.9"/>
+
+    <!-- Center dot -->
+    <circle cx="0" cy="0" r="25" fill="#ffffff"/>
+  </g>
+</svg>
